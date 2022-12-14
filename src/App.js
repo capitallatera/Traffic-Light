@@ -23,11 +23,12 @@ const swtiching = (key) => {
 let nIntervId;
 function App() {
   const [clockTurn, setClockTurn] = useState('');
+  const [store, setStore] = useState('');
 
   function traffic() {
     console.log(swtiching(counter), counter, 'Working');
     setClockTurn(swtiching(counter))
-    if (counter < 3) return (counter += 1)
+    if (counter <= 3) return (counter += 1)
     counter = 0
     stopLights();
 
@@ -35,15 +36,22 @@ function App() {
   }
 
   function changeLights() {
-    traffic();
+    if (clockTurn === 'shut') setClockTurn(store);
+    else traffic();
+    
     if (!nIntervId) {
       nIntervId = setInterval(traffic, timers[counter])
+      
     }
   }
 
   function stopLights() {
     clearInterval(nIntervId)
     nIntervId = null
+    setClockTurn(value => {
+      setStore(value);
+      return 'shut'
+    } );
   }
   console.log(clockTurn, 'clockTurn');
   return (
@@ -55,13 +63,15 @@ function App() {
           flexDirection: 'row-reverse',
         }} 
         check={clockTurn === 'top'}
+        clockTurn={clockTurn}
         divStyle={{margin: '0px 5px'}}
       />
       </div>
 
       <div style={styling.middle}>
         <div className="left">
-        <Left check={clockTurn === 'left'}/>
+        <Left check={clockTurn === 'left'}
+        clockTurn={clockTurn}/>
       </div>
 
       <div className="right">
@@ -71,7 +81,8 @@ function App() {
             display: 'flex',
           }}
         
-        check={clockTurn === 'right'}/>
+        check={clockTurn === 'right'}
+        clockTurn={clockTurn}/>
       </div>
       </div>
 
@@ -80,6 +91,7 @@ function App() {
           display: 'flex',
           width: 'fit-content'}} 
           check={clockTurn === 'bottom'}
+          clockTurn={clockTurn}
           divStyle={{margin: '0px 5px'}}
         />
       </div>

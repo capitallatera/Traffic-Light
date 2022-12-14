@@ -15,7 +15,7 @@ const swtiching = (key) => {
   }
 }
 let nIntervId;
-function Left({styling, check, divStyle}) {
+function Left({styling, check, clockTurn, divStyle}) {
   const [turn, setTurn] = useState("red")
   function traffic() {
     console.log(swtiching(counter), counter, 'Switching Lights');
@@ -37,6 +37,10 @@ function Left({styling, check, divStyle}) {
     if(check) return changeColor();
     return ()=> stopTextColor();
   },[check]);
+
+  useEffect(() =>{
+    if(clockTurn === 'shut') return stopTextColor();
+  },[clockTurn])
   return (
     <div id="isiqfor" style={styling}>
       <div className={`red ${turn == "red" ? "on" : ""}`} style={divStyle}></div>
