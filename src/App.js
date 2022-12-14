@@ -30,8 +30,8 @@ function App() {
     setClockTurn(swtiching(counter))
     if (counter <= 3) return (counter += 1)
     counter = 0
-    stopLights();
-    console.log("It's Stopped");
+    // stopLights();
+    // console.log("It's Stopped");
   }
 
   function changeLights() {
@@ -64,13 +64,15 @@ function App() {
         check={clockTurn === 'top'}
         clockTurn={clockTurn}
         divStyle={{margin: '0px 5px'}}
+        initialValue = {counter === 0 ? 'green' : 'red'}
       />
       </div>
 
       <div style={styling.middle}>
         <div className="left">
         <Left check={clockTurn === 'left'}
-        clockTurn={clockTurn}/>
+        clockTurn={clockTurn}
+        initialValue = {counter === 1 ? 'green' : 'red'}/>
       </div>
 
       <div className="right">
@@ -81,7 +83,8 @@ function App() {
           }}
         
         check={clockTurn === 'right'}
-        clockTurn={clockTurn}/>
+        clockTurn={clockTurn}
+        initialValue = {counter === 2 ? 'green' : 'red'}/>
       </div>
       </div>
 
@@ -92,6 +95,7 @@ function App() {
           check={clockTurn === 'bottom'}
           clockTurn={clockTurn}
           divStyle={{margin: '0px 5px'}}
+          initialValue = {counter === 3 ? 'green' : 'red'}
         />
       </div>
       <div className="buttons" style={styling.top}>

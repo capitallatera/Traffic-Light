@@ -15,8 +15,8 @@ const swtiching = (key) => {
   }
 }
 let nIntervId;
-function Left({styling, check, clockTurn, divStyle}) {
-  const [turn, setTurn] = useState("red")
+function Left({styling, check, clockTurn, divStyle, initialValue}) {
+  const [turn, setTurn] = useState(check ? 'green' : 'red');
   function traffic() {
     // console.log(swtiching(counter+1), counter, 'Switching Lights');
     setTurn(swtiching(counter+1))
