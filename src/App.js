@@ -26,12 +26,11 @@ function App() {
   const [store, setStore] = useState('');
 
   function traffic() {
-    console.log(swtiching(counter), counter, 'Working');
+    // console.log(swtiching(counter), counter, 'Working');
     setClockTurn(swtiching(counter))
     if (counter <= 3) return (counter += 1)
     counter = 0
     stopLights();
-
     console.log("It's Stopped");
   }
 

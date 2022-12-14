@@ -18,8 +18,8 @@ let nIntervId;
 function Left({styling, check, clockTurn, divStyle}) {
   const [turn, setTurn] = useState("red")
   function traffic() {
-    console.log(swtiching(counter), counter, 'Switching Lights');
-    setTurn(swtiching(counter))
+    // console.log(swtiching(counter+1), counter, 'Switching Lights');
+    setTurn(swtiching(counter+1))
     if (counter < 2) return (counter += 1)
     counter = 0
     stopTextColor();
@@ -40,7 +40,9 @@ function Left({styling, check, clockTurn, divStyle}) {
 
   useEffect(() =>{
     if(clockTurn === 'shut') return stopTextColor();
-  },[clockTurn])
+    if(check && (clockTurn !== 'shut') && (counter === 0)) return setTurn(swtiching(0))
+  },[check, clockTurn])
+  // console.log(check, 'checkcheck');
   return (
     <div id="isiqfor" style={styling}>
       <div className={`red ${turn == "red" ? "on" : ""}`} style={divStyle}></div>
