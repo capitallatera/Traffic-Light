@@ -15,14 +15,14 @@ const swtiching = (key) => {
   }
 }
 let nIntervId;
-function Left({styling, check}) {
+function Left({styling, check, divStyle}) {
   const [turn, setTurn] = useState("red")
-  // const [count, setCount] = useState(0)
   function traffic() {
     console.log(swtiching(counter), counter, 'Switching Lights');
     setTurn(swtiching(counter))
     if (counter < 2) return (counter += 1)
     counter = 0
+    stopTextColor();
   }
   const changeColor = () => {
     if (!nIntervId) {
@@ -39,15 +39,15 @@ function Left({styling, check}) {
   },[check]);
   return (
     <div id="isiqfor" style={styling}>
-      <div className={`red ${turn == "red" ? "on" : ""}`}></div>
-      <div className={`yellow ${turn == "yellow" ? "on" : ""}`}></div>
-      <div className={`green ${turn == "green" ? "on" : ""}`}></div>
-      <button id="start" onClick={() => changeColor()}>
+      <div className={`red ${turn == "red" ? "on" : ""}`} style={divStyle}></div>
+      <div className={`yellow ${turn == "yellow" ? "on" : ""}`} style={divStyle}></div>
+      <div className={`green ${turn == "green" ? "on" : ""}`} style={divStyle}></div>
+      {/* <button id="start" onClick={() => changeColor()}>
         Start
       </button>
       <button id="stop" onClick={() => stopTextColor()}>
         Stop
-      </button>
+      </button> */}
     </div>
   )
 }

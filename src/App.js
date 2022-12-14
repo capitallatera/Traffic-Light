@@ -3,7 +3,7 @@ import "./App.css"
 import { useEffect, useState } from "react"
 import Left from "./component/Left"
 
-const timers = [8000, 8000, 8000, 8000]
+const timers = [7000, 7000, 7000, 7000]
 let counter = 0
 
 const swtiching = (key) => {
@@ -29,6 +29,9 @@ function App() {
     setClockTurn(swtiching(counter))
     if (counter < 3) return (counter += 1)
     counter = 0
+    stopLights();
+
+    console.log("It's Stopped");
   }
 
   function changeLights() {
@@ -49,7 +52,11 @@ function App() {
         <Left  styling ={{    
           display: 'flex',
           width: 'fit-content',
-          flexDirection: 'row-reverse'}} check={clockTurn === 'top'}/>
+          flexDirection: 'row-reverse',
+        }} 
+        check={clockTurn === 'top'}
+        divStyle={{margin: '0px 5px'}}
+      />
       </div>
 
       <div style={styling.middle}>
@@ -71,7 +78,10 @@ function App() {
       <div className="bottom" style={styling.bottom}>
         <Left styling ={{    
           display: 'flex',
-          width: 'fit-content'}} check={clockTurn === 'bottom'}/>
+          width: 'fit-content'}} 
+          check={clockTurn === 'bottom'}
+          divStyle={{margin: '0px 5px'}}
+        />
       </div>
       <div className="buttons" style={styling.top}>
       <button id="start" onClick={() => changeLights()}>
