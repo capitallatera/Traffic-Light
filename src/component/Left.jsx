@@ -1,7 +1,7 @@
 import "../App.css";
 import { useEffect, useState } from "react";
-const timers = [1000, 1000, 1000];
-let counter = 0;
+const timers = [2000, 2000, 2000];
+let counter = 1;
 const swtiching = (key) => {
 	switch (key) {
 		case 0:
@@ -15,7 +15,7 @@ const swtiching = (key) => {
 	}
 };
 let nIntervId;
-function Left({ styling, divStyle, active, initial, clockTurn }) {
+function Left({ clockTurn, active, styling, divStyle }) {
 	const [turn, setTurn] = useState("red");
 	function traffic() {
 		setTurn(swtiching(counter));
@@ -31,16 +31,20 @@ function Left({ styling, divStyle, active, initial, clockTurn }) {
 	function stopTextColor() {
 		clearInterval(nIntervId);
 		nIntervId = null;
+    counter = 0;
 	}
   useEffect(() =>{
-    setTurn(active ? "green" : "red")
+    setTurn(active ? "green" : "red");
+      if(active) return changeColor();
+      return ()=> stopTextColor();
   },[active]);
-
-  // useEffect(()=>{
-  //   if(active) return changeColor();
-  //   return ()=> stopTextColor();
-  // },[active]);
-  // console.log(active && initial, turn, 'initialinitial');
+  
+  useEffect(() =>{
+    if(active && clockTurn === '') {
+      clearInterval(nIntervId);
+		  nIntervId = null;
+    }
+  },[active, clockTurn]);
 	return (
 		<div id="isiqfor" style={styling}>
 			<div

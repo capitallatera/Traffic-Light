@@ -1,9 +1,9 @@
 import "./App.css";
 import { useState } from "react";
 import Left from "./component/Left";
-
-const timers = [7000, 7000, 7000, 7000];
-let counter = 0;
+//             Top , Right, Bottom, Left
+const timers = [6000, 6000, 6000, 6000];
+let counter = -1;
 
 const swtiching = (key) => {
 	switch (key) {
@@ -26,12 +26,12 @@ function App() {
 
 	function traffic() {
 		setClockTurn(swtiching(counter));
-		if (counter <= 3) return (counter += 1);
+		if (counter < 3) return (counter += 1);
 		counter = 0;
-    stopLights();
 	}
 
 	function changeLights() {
+    if(counter === -1) counter+=1;
 		if (!nIntervId) {
 			nIntervId = setInterval(traffic, timers[counter]);
 		}
@@ -40,26 +40,26 @@ function App() {
 	function stopLights() {
 		clearInterval(nIntervId);
 		nIntervId = null;
+    	setClockTurn('')
 	}
-  console.log(counter, 'counter')
 	return (
 		<div className="relative">
 			<div className="top" style={styling.top}>
-				<Left styling={styling.topLeft} divStyle={styling.divStyling} active={counter ===0} initial={counter} clockTurn={clockTurn}/>
+				<Left clockTurn={clockTurn} active={counter ===0} styling={styling.topLeft} divStyle={styling.divStyling} />
 			</div>
 
 			<div style={styling.middle}>
 				<div className="left">
-					<Left active={counter === 3} initial={counter} clockTurn={clockTurn}/>
+					<Left clockTurn={clockTurn} active={counter === 3} />
 				</div>
 
 				<div className="right">
-					<Left styling={styling.rightLeft} active={counter ===1} initial={counter} clockTurn={clockTurn}/>
+					<Left clockTurn={clockTurn} active={counter ===1} styling={styling.rightLeft} />
 				</div>
 			</div>
 
 			<div className="bottom" style={styling.bottom}>
-				<Left styling={styling.bottomLeft} divStyle={styling.divStyling} active={counter ===2} initial={counter} clockTurn={clockTurn}/>
+				<Left clockTurn={clockTurn} active={counter ===2} styling={styling.bottomLeft} divStyle={styling.divStyling} />
 			</div>
 			<div className="buttons" style={styling.top}>
 				<button id="start" onClick={() => changeLights()}>
