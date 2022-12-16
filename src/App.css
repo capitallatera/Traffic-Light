@@ -43,8 +43,23 @@
     width:50px; height: 50px; margin: 5px 0; opacity: 0.1;
     border: 1px solid #333; border-radius: 50%; 
 }
+#isiqfor > div.on { opacity: 1; transition: opacity 200ms linear; }
 .green { background-color: green; }
 .yellow { background-color: yellow; }
 .red { background-color: red; }
-#isiqfor > div.on { opacity: 1; transition: opacity 200ms linear; }
-
+.isiqfor { 
+  border: 1px solid;
+  width: fit-content;
+  padding: 5px 5px;
+  margin: 5px;
+}
+.light {
+  width:50px; height: 50px; margin: 5px 5px; opacity: 0.1;
+  border: 1px solid #333; border-radius: 50%; 
+}
+.on { opacity: 1; transition: opacity 200ms linear; }
+.flex-around { display: flex; justify-content: space-around;}
+.flex-center { display: flex; justify-content: center;}
+.center { display: flex; justify-content: center;}
+.row-reverse { flex-direction: row-reverse;}
+.column-reverse {     display: flex; flex-direction: column-reverse;}
