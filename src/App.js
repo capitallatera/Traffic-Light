@@ -1,84 +1,49 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import "./App.css";
-let parentTimeout, childTimeout;
-let counter = 0;
-let counterChild = 0;
-const switchCompoent = (key) =>{
-	switch (key) {
-		case 0: return 'top'
-		case 1: return 'right'
-		case 2: return 'bottom'
-		case 3: return 'left'
-		default: return;
-	}
-}
-const switchLight = (key) =>{
-	switch (key) {
-		case 0: return 1
-		case 1: return 2
-		case 2: return 3
-		default: return;
-	}
-}
-function App() {
-	const [current, setCurrent] = useState('');
-	const [lights, setLights] = useState('');
-	function iterateLightComponent(){
-		setCurrent(switchCompoent(counter));
-		onStop()
-		iterateLights()
-		if(counter < 3) {
-			counter+=1
-			onStart()
-			return
-		}
-		counter = 0
-	}
 
-	function iterateLights(){
-		setLights(switchLight(counterChild));
-		onStopChild()
-		if(counterChild < 1) {
-			counterChild+=1
-			onStartChild()
-			return
-		}
-		counterChild = 0
-	}
-
-	function onStart(delay){
-		if(!parentTimeout){
-			parentTimeout = setTimeout(iterateLightComponent, 2000);
-		}
-	}
-
-	function onStartChild(delay){
-		if(!childTimeout){
-			childTimeout = setTimeout(iterateLights, 1000);
-		}
-	}
+const innerObj = (top, right, bottom, left) =>({
+	top: top,
+	right: right,
+	bottom: bottom,
+	left: left,
+})
+const obj ={
+	0:innerObj(1,3,3,3),
+	1:innerObj(2,3,3,3),
 	
-	function onStop(){
-		onStopChild()
-		clearTimeout(parentTimeout)
-		parentTimeout=null;
-	}
-
-	function onStopChild(){
-		clearTimeout(childTimeout)
-		childTimeout=null;
-	}
-	useEffect(() =>{
-		let timeout;
-		if(current === 'left' && lights === 2){
-			timeout = setTimeout(()=>{
-				setLights(switchLight(2));
-			},1000);
+	2:innerObj(3,1,3,3),
+	3:innerObj(3,2,3,3),
+	
+	4:innerObj(3,3,1,3),
+	5:innerObj(3,3,2,3),
+	
+	6:innerObj(3,3,3,1),
+	7:innerObj(3,3,3,2),
+	
+	8:innerObj(3,3,3,3),
+}
+let timeOut;
+let count=0;
+function App() {
+	const [counting, setCounting] = useState(0);
+	function iterateSecond (){
+		if(count<8){
+			count+=1;
+			setCounting(count)
+			timeOut && onStart()
 		}
-		return ()=> clearTimeout(timeout);
-	},[current, lights])
-	console.log(current, lights, 'currentcurrent');
-	const passSignal = (Ctype) => current === Ctype ? lights : 3 
+		onStop();
+	}
+	function onStart() {
+		if(!timeOut) setTimeout(iterateSecond, 2000);
+	}
+	function onStop () {
+		clearTimeout(timeOut);
+		timeOut = null;
+		// console.log(counting, 'Values');
+	}
+	const passSignal = (Ctype) => obj[counting][Ctype] ? obj[counting][Ctype] : 3 
+	// console.log(counting, 'Counting')
 	return <div>
 		<div className="flex-center"><LightTop className="center" turnOn={passSignal('top')} /></div>
 		<div className="flex-around"><LightLeft className="column-reverse"turnOn={passSignal('left')} /> <LightRight turnOn={passSignal('right')} /></div>
@@ -89,9 +54,6 @@ function App() {
 }
 
 export default App;
-
-
-
 
 function switchStyle (key) {
 	switch (key) {
