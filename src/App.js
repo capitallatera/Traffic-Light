@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 let parentTimeout, childTimeout;
 let counter = 0;
@@ -16,7 +16,7 @@ const switchLight = (key) =>{
 	switch (key) {
 		case 0: return 1
 		case 1: return 2
-		// case 2: return 3
+		case 2: return 3
 		default: return;
 	}
 }
@@ -32,7 +32,7 @@ function App() {
 			onStart()
 			return
 		}
-		return counter = 0
+		counter = 0
 	}
 
 	function iterateLights(){
@@ -43,7 +43,7 @@ function App() {
 			onStartChild()
 			return
 		}
-		return counterChild = 0
+		counterChild = 0
 	}
 
 	function onStart(delay){
@@ -68,7 +68,16 @@ function App() {
 		clearTimeout(childTimeout)
 		childTimeout=null;
 	}
-	console.log(current, 'currentcurrent');
+	useEffect(() =>{
+		let timeout;
+		if(current === 'left' && lights === 2){
+			timeout = setTimeout(()=>{
+				setLights(switchLight(2));
+			},1000);
+		}
+		return ()=> clearTimeout(timeout);
+	},[current, lights])
+	console.log(current, lights, 'currentcurrent');
 	const passSignal = (Ctype) => current === Ctype ? lights : 3 
 	return <div>
 		<div className="flex-center"><LightTop className="center" turnOn={passSignal('top')} /></div>
