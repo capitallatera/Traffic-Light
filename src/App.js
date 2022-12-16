@@ -28,12 +28,15 @@ function App() {
 		setClockTurn(swtiching(counter));
 		if (counter < 3) return (counter += 1);
 		counter = 0;
+		clearInterval(nIntervId);
+		nIntervId = null;
 	}
 
 	function changeLights() {
-    if(counter === -1) counter+=1;
+		if(counter === -1) counter+=1;
+		if(clockTurn === '' && counter !== 0) setClockTurn('resume');
 		if (!nIntervId) {
-			nIntervId = setInterval(traffic, timers[counter]);
+			nIntervId = setInterval(traffic, 3000);
 		}
 	}
 

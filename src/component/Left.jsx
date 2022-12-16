@@ -21,29 +21,23 @@ function Left({ clockTurn, active, styling, divStyle }) {
 		setTurn(swtiching(counter));
 		if (counter < 2) return (counter += 1);
 		counter = 0;
-    stopTextColor();
+    	stopTextColor();
 	}
 	const changeColor = () => {
 		if (!nIntervId) {
-			nIntervId = setInterval(traffic, timers[counter]);
+			nIntervId = setInterval(traffic, 1000);
 		}
 	};
 	function stopTextColor() {
 		clearInterval(nIntervId);
 		nIntervId = null;
-    counter = 0;
+    	counter = 0;
 	}
   useEffect(() =>{
     setTurn(active ? "green" : "red");
-      if(active) return changeColor();
-      return ()=> stopTextColor();
-  },[active]);
-  
-  useEffect(() =>{
-    if(active && clockTurn === '') {
-      clearInterval(nIntervId);
-		  nIntervId = null;
-    }
+	if(clockTurn === 'resume' && active) return changeColor();
+	if(clockTurn && active) return changeColor();
+    return ()=> stopTextColor();
   },[active, clockTurn]);
 	return (
 		<div id="isiqfor" style={styling}>
