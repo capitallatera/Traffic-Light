@@ -30,20 +30,24 @@ function App() {
 		if(count<8){
 			count+=1;
 			setCounting(count)
-			timeOut && onStart()
+			if(timeOut) {
+				onStop();
+				onStart();
+				return;
+			}
 		}
-		onStop();
 	}
 	function onStart() {
-		if(!timeOut) setTimeout(iterateSecond, 2000);
+		if(!timeOut) {
+			timeOut = setTimeout(iterateSecond, 2000);
+		}
 	}
 	function onStop () {
 		clearTimeout(timeOut);
 		timeOut = null;
-		// console.log(counting, 'Values');
 	}
 	const passSignal = (Ctype) => obj[counting][Ctype] ? obj[counting][Ctype] : 3 
-	// console.log(counting, 'Counting')
+	console.log(count, 'count')
 	return <div>
 		<div className="flex-center"><LightTop className="center" turnOn={passSignal('top')} /></div>
 		<div className="flex-around"><LightLeft className="column-reverse"turnOn={passSignal('left')} /> <LightRight turnOn={passSignal('right')} /></div>
