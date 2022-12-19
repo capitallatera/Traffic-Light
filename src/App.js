@@ -1,11 +1,11 @@
 import { useState } from "react";
 import "./App.css";
 
-const innerObj = (top, right, bottom, left) =>({
+const innerObj = (top, left, bottom, right) =>({
 	top: top,
-	right: right,
-	bottom: bottom,
 	left: left,
+	bottom: bottom,
+	right: right,
 })
 const obj ={
 	0:innerObj(1,3,3,3),
@@ -52,9 +52,9 @@ function App() {
 	const passSignal = (Ctype) => obj[counting][Ctype] ? obj[counting][Ctype] : 3 
 	// console.log(count, 'count')
 	return <div>
-		<div className="flex-center"><LightTop className="center" turnOn={passSignal('top')} /></div>
-		<div className="flex-around"><LightLeft className="column-reverse"turnOn={passSignal('left')} /> <LightRight turnOn={passSignal('right')} /></div>
-		<div className="flex-center"><LightBottom className="center row-reverse" turnOn={passSignal('bottom')} /></div>
+		<div className="flex-center"><LightTop className="center row-reverse" turnOn={passSignal('top')} /></div>
+		<div className="flex-around"><LightLeft turnOn={passSignal('left')} /> <LightRight className="column-reverse" turnOn={passSignal('right')} /></div>
+		<div className="flex-center"><LightBottom className="center" turnOn={passSignal('bottom')} /></div>
 		<button onClick={()=>onStart()}>start</button>
 		<button onClick={()=>onStop()}>stop</button>
 	</div>
