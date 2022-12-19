@@ -20,7 +20,7 @@ const obj ={
 	6:innerObj(3,3,3,1),
 	7:innerObj(3,3,3,2),
 	
-	8:innerObj(3,3,3,3),
+	8:innerObj(1,3,3,3),
 }
 let timeOut;
 let count=0;
@@ -35,9 +35,12 @@ function App() {
 				onStart();
 				return;
 			}
-		}
+		} 
+		count = 0;
+		onStop();
 	}
 	function onStart() {
+		// console.log(timeOut, 'Timeout');
 		if(!timeOut) {
 			timeOut = setTimeout(iterateSecond, 2000);
 		}
@@ -47,7 +50,7 @@ function App() {
 		timeOut = null;
 	}
 	const passSignal = (Ctype) => obj[counting][Ctype] ? obj[counting][Ctype] : 3 
-	console.log(count, 'count')
+	// console.log(count, 'count')
 	return <div>
 		<div className="flex-center"><LightTop className="center" turnOn={passSignal('top')} /></div>
 		<div className="flex-around"><LightLeft className="column-reverse"turnOn={passSignal('left')} /> <LightRight turnOn={passSignal('right')} /></div>
